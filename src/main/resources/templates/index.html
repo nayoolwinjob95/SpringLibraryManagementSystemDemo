@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+
+	<!--bootstrap css1 js2-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+
+	<!--fontawesone css1-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+		type="text/css">
+	<link rel="stylesheet" href="/resources/css/index.css">
+</head>
+
+<body>
+
+	<div class="nav-section">
+		<div class="container-fluid">
+			<div class="row d-flex justify-content-center align-items-center" style="background: #92D050;">
+
+				<div class="col-sm-12 col-md-2 col-lg-2">
+					<img src="/resources/images/Ellipse.png" alt="ellipse" />
+				</div>
+				<div class="col-sm-12 col-md-6 col-lg-6">
+					<a class="btn rounded-0 nav-btns" th:href="@{/search?bookType=Book}" th:classappend="${#strings.equals(param.bookType, 'Book')} ? btn-selected : ''">Books</a>
+					<a class="btn rounded-0 nav-btns" th:href="@{/search?bookType=Ebook}" th:classappend="${#strings.equals(param.bookType, 'Ebook')} ? btn-selected : ''">EBooks</a>
+					<a class="btn rounded-0 nav-btns" th:href="@{/book/addBook}">Add Book</a>
+					<a class="btn rounded-0 nav-btns" th:href="@{/category/addCategory}">AddCategory</a>
+				</div>
+				<div class="col-sm-12 col-md-4 col-lg-4
+				 d-flex justify-content-md-end justify-content-sm-center">
+					<a sec:authorize="!isAuthenticated()" class="btn nav-btn rounded-0 mx-3 nav-btns" th:href="@{/register}">Register</a>
+					<a sec:authorize="!isAuthenticated()" class="btn nav-btn rounded-0 mr-3 nav-btns" th:href="@{/login}">Login</a>
+					<a sec:authorize="isAuthenticated()" class="btn nav-btn rounded-0 mr-3 nav-btns" id="signoutLink" href="#">Logout</a>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div class="catalog-section pb-3 pt-3">
+		<div class="container-fluid catalog pt-2">
+
+			<img src="/resources/images/List.png" alt="listpng" class="listimg" />
+
+			<span class="catalog-text mx-4 mt-3 d-block">BOOK'S CATALOG</span>
+		</div>
+
+	</div>
+
+	<div class="card-section">
+		<div class="container-fluid">
+			<div class="row parents">
+				<div class="col-md-9 mr-2">
+					<div class="search-div">
+						<!--<label>Category</label><br/>
+						<select class="mb-3" aria-label=".form-select-lg example">
+							<option selected>Open this select menu</option>
+							<option value="1">One</option>
+							<option value="2">Two</option>
+							<option value="3">Three</option>
+						</select>-->
+						<table>
+							<tr>
+								<th>Category</th>
+								<th>Author</th>
+								<th>RegistrationNo</th>
+								<th>Book Name</th>
+							</tr>
+							<tr>
+								<td class="selectbox">
+									<select class="td-wd category">
+										<option value="">All</option>
+										<option th:each="category : ${categoryList}" th:text="${category.name}"
+											th:value="${category.id}" th:selected="${#strings.equals(param.category, category.id)}"></option>
+									</select>
+									<img src="/resources/images/Chevron.png" alt="selectarrow" class="select-arrows" />
+								</td>
+
+
+								<td>
+									<input type="text" class="author td-wd" th:value="${param.author}" />
+								</td>
+								<td>
+									<input type="text" class="regno td-wd" th:value="${param.registrationNo}" />
+								</td>
+								<td>
+									<input type="text" class="bookname td-wd" th:value="${param.bookName}" />
+								</td>
+
+								<td>
+									<button type="button"
+										class="btn rounded-0 td-wd search-btn justify-content-sm-start">Search</button>
+								</td>
+
+							</tr>
+
+						</table>
+
+					</div>
+
+
+					<div class="row">
+						<div class="col-md-3 col-lg-3 col-sm-12 margins" th:each="book:${bookList}">
+							<div class="card">
+								<div class="card-body pt-5">
+									<img class="img-fluid mx-auto d-block card-imgs" th:src="@{${'/resources/images/books/'+book.bookImage}}" alt="Card image cap">
+									<a sec:authorize="isAuthenticated()" th:if="${#strings.equals(book.bookType, 'Book') and (#strings.equals(book.borrowedFlag, '0') or #strings.equals(book.borrowedFlag, null))}" th:href="@{/borrow/{bookid}(bookid=${book.id})}" class="mx-auto link">Available</a>
+									<a sec:authorize="isAuthenticated()" th:if="${#strings.equals(book.bookType, 'Book') and #strings.equals(book.borrowedFlag, '1') and !#strings.equals(book.username, username)}" href="javascript:void(0)" class="mx-auto link">Unavailable</a>
+									<a sec:authorize="isAuthenticated()" th:if="${#strings.equals(book.bookType, 'Book') and #strings.equals(book.borrowedFlag, '1') and #strings.equals(book.username, username)}" th:href="@{/return/{borrowedid}(borrowedid=${book.borrowedId})}" class="mx-auto link">Already Lend</a>
+									<a sec:authorize="isAuthenticated()" th:if="${#strings.equals(book.bookType, 'Ebook')}" href="javascript:void(0)" class="mx-auto link download-book" th:attr="data-ebook=${book.ebookPdf}">Download</a>
+									<a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="mx-auto link">Login First</a>
+
+									<div class="card-text">
+										<span th:text="bookName+' : '+${book.bookName}">dsf</span><br />
+										<span th:text="author+' : '+${book.author}"></span><br />
+										<span th:text="bookID+' : '+${book.id}"></span><br />
+										<span th:text="produceYear+' : '+${book.produceYear}"></span><br />
+									</div>
+								</div>
+								<a th:href="@{/book/updateBook/{id}(id=${book.id})}" class="card-footer upbooks ">
+									UPDATE
+								</a>
+
+
+							</div>
+						</div>
+						<img th:if="${#lists.isEmpty(bookList)}" src="/resources/images/NoBook.png" alt="BookNotFound" class="mt-5 mb-5 w-75 ml-auto text-center" style="margin: auto;" />
+						
+					</div>
+				</div>
+				<div class="select-div col-md-3 col-sm-12">
+					<div class="list-group">
+						<a href="#" class="list-group-item list-group-item-action text-center">
+							Book Categories
+						</a>
+						<a th:each="category : ${categoryList}" th:href="@{/search?category=} + ${category.id}" class="list-group-item list-group-item-action"
+							th:text="${category.name}" th:classappend="${#strings.equals(param.category, category.id)} ? btn-selected : ''"></a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<div class="footer-section mt-5 ">
+		<span>@CopyRight By STAR SE</span>
+	</div>
+	
+	<div class="d-none">
+		<form th:action="@{/logout}" method="post" id="signoutForm"></form>
+	</div>
+
+	
+	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>	
+	<script>
+		$( document ).ready(function() {
+		    $('.search-btn').on('click', function() {
+				window.location = window.location.origin + "/search?category=" + $(".category").val() + "&author=" + $(".author").val() + "&registrationNo=" + $(".regno").val() + "&bookName=" + $(".bookname").val();
+			});
+
+			$('#signoutLink').on('click', function() {
+				$('#signoutForm').submit();
+			});
+			
+			$('.download-book').on('click', function() {
+				window.open('/download/file/' + $(this).data('ebook'), '_blank');
+			});
+		});
+	</script>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+		integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+		integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

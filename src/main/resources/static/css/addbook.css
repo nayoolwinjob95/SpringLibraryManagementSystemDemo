@@ -1,0 +1,166 @@
+@charset "ISO-8859-1";
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Noto+Sans+JP&family=Noto+Sans+TC&display=swap');
+
+* {
+	padding: 0;
+	margin: 0
+}
+
+body {
+	font-family: Inter;
+	width: 100%;
+	height: 100vh;
+	background-color: #92D050;
+	overflow: hidden;
+
+	
+}
+h5{
+	font-size: 15px;
+	font-weight: 900;
+	text-align: center;
+	color: #121212;
+	text-shadow: 2px 7px 5px rgba(0,0,0,0.3), 
+    0px -4px 10px rgba(255,255,255,0.3);
+}
+.divs{
+	height: inherit;
+	padding: 0 400px;
+}
+
+
+.bg-image img{
+	width: 250px;
+	height: 250px;
+	transform: translateY(-25px);
+}
+
+.addbook-btn,.cancel-btn{
+	width: 180px;
+	background: #035114;
+	margin-bottom: 5px;
+	color: #fff;
+	font-size: 14px;
+	margin-top: 0;
+	transform: translateY(-20px);
+}
+
+.cancel-btn{
+	margin-left: 20px;
+}
+
+.wd-div{
+	width: 220px;
+	height: 35px;
+	background-color: #79BD15;;
+	margin-bottom: 10px;
+	text-align: center;
+	color: #fff;
+	font-size: 14px;
+	line-height: 35px;
+}
+
+.input-wd{
+	width:230px;
+	height: 35px;
+	background-color: #79BD15;
+	margin-bottom: 10px;
+	text-align: center;
+
+	color: #fff;
+	font-size: 14px;
+	border: none;
+	
+
+}
+
+.input-wd:focus{
+	outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@media (max-width: 1300px) {
+   .divs{
+	   padding: 0 200px;
+   }
+}
+
+@media (max-width: 1150px) {
+   .divs{
+	   padding: 0 100px;
+   }
+}
+
+@media (max-width: 850px) {
+   .divs{
+	   padding: 0 100px;
+   }
+   
+   .addbook-btn,.cancel-btn{
+	
+	margin-left: 10px;
+}
+
+   
+   
+.bg-image img{
+	width: 150px;
+	height: 150px;
+	transform: translateY(-25px);
+}
+
+.wd-div{
+	width: 170px;
+	height: 30px;
+	background-color: #79BD15;;
+	margin-bottom: 10px;
+	text-align: center;
+	color: #fff;
+	font-size: 14px;
+}
+
+
+
+
+
+@media (max-width: 750px) {
+   .divs{
+	   padding: 0 50px;
+   }
+   
+   .bg-image{
+	   display: none;
+   }
+   
+   .input-wd{
+	margin-left: 40px;
+	
+
+}
+
+.addbook-btn,.cancel-btn{
+	text-align: center;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.wd-div{
+	margin:auto;
+	margin-bottom: 10px;
+}
+
+
+
+
+
+   
+  
+}
+   
+   
+}

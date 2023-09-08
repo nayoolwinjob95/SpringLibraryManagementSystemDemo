@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.jp.kadai.repository.UserRepository">
+
+	<resultMap id="UserResultMap" type="co.jp.kadai.entity.User">
+		<result column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="email" property="email" />
+		<result column="password" property="password" />
+		<result column="phoneno" property="phoneNo" />
+	</resultMap>
+	
+	<insert id="register" >
+		insert into user_tbl(username,email,password,phoneno) values (#{username},#{email},#{password},#{phoneNo})
+	</insert>
+	
+	<select id="getUser" resultMap="UserResultMap">
+		SELECT * FROM user_tbl
+	</select>
+	
+	<select id="findOneByUsername" resultMap="UserResultMap">
+		SELECT * FROM user_tbl where username = #{username}
+	</select>
+	
+</mapper>

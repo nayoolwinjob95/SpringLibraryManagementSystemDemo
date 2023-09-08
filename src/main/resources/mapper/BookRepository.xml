@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.jp.kadai.repository.BookRepository">
+
+	<resultMap id="BookResultMap" type="co.jp.kadai.entity.Book">
+		<result column="id" property="id" />
+		<result column="bookname" property="bookName" />
+		<result column="bookcategoryid" property="bookCategoryId" />
+		<result column="author" property="author" />
+		<result column="produceyear" property="produceYear" />
+		<result column="booktype" property="bookType" />
+		<result column="bookimage" property="bookImage" />
+		<result column="ebookpdf" property="ebookPdf" />
+	</resultMap>
+	
+	<resultMap id="BookListResultMap" type="co.jp.kadai.dto.BookListDto">
+		<result column="id" property="id" />
+		<result column="bookname" property="bookName" />
+		<result column="bookcategoryid" property="bookCategoryId" />
+		<result column="author" property="author" />
+		<result column="produceyear" property="produceYear" />
+		<result column="booktype" property="bookType" />
+		<result column="bookimage" property="bookImage" />
+		<result column="ebookpdf" property="ebookPdf" />
+		<result column="borrowedid" property="borrowedId" />
+		<result column="username" property="username" />
+		<result column="borrowedflag" property="borrowedFlag" />
+	</resultMap>
+	
+	<select id="getBookWithMaxId">
+		SELECT id as id FROM book ORDER BY id DESC LIMIT 1
+	</select>
+	
+	<insert id="saveBook" parameterType="co.jp.kadai.entity.Book">
+		insert into book(id, bookname, bookcategoryid, author, produceyear, booktype, bookimage, ebookpdf) 
+		values (#{id},#{bookName},#{bookCategoryId},#{author},#{produceYear},#{bookType},#{bookImage},#{ebookPdf})
+	</insert>
+	
+	<select id="getBookWithId" resultMap="BookResultMap">
+		SELECT * FROM book WHERE id = #{id}
+	</select>
+	
+	<select id="getBook" resultMap="BookListResultMap">
+		select b.*, bo.id as borrowedid, u.username, bo.borrowedflag from book b
+		left outer join borrowed_book bo ON 
+			bo.bookid = b.id and bo.borrowedflag = 1
+		left outer join user_tbl u ON
+			u.id = bo.userid
+		where 1 = 1
+		<if test="category != null and category != ''">
+			and b.bookcategoryid = #{category}
+		</if>
+		<if test="author != null and author != ''">
+			and b.author like CONCAT('%', #{author}, '%')
+		</if>
+		<if test="registrationNo != null and registrationNo != ''">
+			and b.id like CONCAT('%', #{registrationNo}, '%')
+		</if>
+		<if test="bookName != null and bookName != ''">
+			and b.bookname like CONCAT('%', #{bookName}, '%')
+		</if>
+		<if test="bookType != null and bookType != ''">
+			and b.booktype = #{bookType}
+		</if>
+		order by b.id
+	</select>
+	
+	<update id="updateBook" parameterType="co.jp.kadai.entity.Book">
+		update book 
+		set bookname = #{bookName},
+			bookcategoryid = #{bookCategoryId},
+			author = #{author},
+			produceyear = #{produceYear},
+			booktype = #{bookType}
+			<if test="bookImage != null and bookImage != ''">
+			,bookimage = #{bookImage}
+			</if>
+			<if test="ebookPdf != null and ebookPdf != ''">
+			,ebookpdf = #{ebookPdf}
+			</if>
+		where id = #{id}
+	</update>
+	
+</mapper>

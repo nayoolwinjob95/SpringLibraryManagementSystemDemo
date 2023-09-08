@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.jp.kadai.repository.BorrowedBookRepository">
+
+	<resultMap id="BorrowedBookResultMap" type="co.jp.kadai.entity.BorrowedBook">
+		<result column="id" property="id" />
+		<result column="bookid" property="bookId" />
+		<result column="userid" property="userId" />
+		<result column="borrowedflag" property="borrowedFlag" />
+	</resultMap>
+	
+	<insert id="saveBorrowedBook" >
+		insert into borrowed_book(bookid,userid,borrowedflag) 
+		values ((select b.id from book b where b.id = #{bookid}),(select u.id from user_tbl u where u.username = #{username}),1)
+	</insert>
+	
+	<update id="returnBorrowedBook" >
+		update borrowed_book set borrowedflag = 0 where id = #{borrowedid}
+	</update>
+	
+	<select id="getBorrowedBook" resultMap="BorrowedBookResultMap">
+		SELECT * FROM borrowed_book
+	</select>
+	
+</mapper>

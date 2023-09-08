@@ -1,0 +1,368 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Noto+Sans+JP&family=Noto+Sans+TC&display=swap');
+
+body {
+	font-family: 'Inter', sans-serif;
+	overflow-x: hidden;
+}
+
+.nav-btns {
+	background: #548135;
+	width: 115px;
+	height: 45px;
+	color: #FFF;
+	line-height: 30px;
+
+	flex-shrink: 0;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 700;
+	margin-bottom: 5px;
+	text-align: center;
+
+}
+
+.btn-selected {
+	background: #0b4f39!important;
+}
+
+.listimg {
+	width: 47px;
+	height: 49px;
+	margin-left: 62px;
+
+}
+
+.catalog {
+	display: flex;
+
+	align-items: center;
+}
+
+
+.catalog-text {
+	color: #000;
+
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+
+
+}
+
+.search-div {
+	background: rgba(84, 129, 53, 0.34);
+	position: relative;
+	padding: 50px 0px 50px 10px;
+	margin-left: 30px;
+
+}
+
+select {
+	appearance: none;
+}
+
+
+
+.td-wd {
+	width: 128px;
+	height: 47px;
+	flex-shrink: 0;
+
+}
+
+.search-btn {
+	background: #548135;
+	color: #FFF;
+	text-align: center;
+	
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	margin-left: 100px;
+
+}
+
+.selectbox {
+	position: relative;
+	/*z-index: 1;*/
+}
+
+.margins{
+	margin-top: 25px;
+	margin-right: 10px;
+	margin-left: 40px;
+}
+
+
+
+.selectbox img {
+
+	position: absolute;
+	top: 17%;
+	left: 70%;
+
+
+}
+
+
+th {
+	color: #000;
+	text-align: center;
+	font-family: Inter;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	padding-bottom: 10px;
+}
+
+td {
+	margin: 0;
+	text-align: center;
+	font-size: 14px;
+}
+
+input,
+select {
+	border: none;
+	background: #E6EFDF;
+}
+
+input,
+select:focus {
+	outline: none;
+}
+
+.card {
+	width: 213px;
+	height: 290px;
+	background: rgba(155, 248, 153, 0.63);
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+}
+
+.card-imgs {
+	width: 128px;
+	height: 128px;
+	text-align: center;
+}
+
+.card-body {
+	position: relative;
+}
+
+.card-text {
+	font-size: 14px;
+	font-weight: 700;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: 0.3s;
+	width: 192px;
+	height: 102px;
+
+	text-align: center;
+	opacity: 0;
+}
+
+.card:hover {
+	transform: scale(1.05);
+}
+
+.card:hover .card-text {
+	opacity: 1;
+}
+
+.link {
+	display: block;
+
+	text-align: center;
+	margin: auto;
+	margin-top: 20px;
+
+	color: #035114;
+
+	font-weight: 800;
+
+	text-decoration-line: underline;
+
+
+
+}
+
+.upbooks {
+	text-align: center;
+	text-decoration: none;
+	padding: 8px;
+	background: #92D050;
+	color: #E6EFDF;
+	align-items: center;
+
+	font-size: 16px;
+
+	font-weight: 800;
+
+}
+
+.select-div {
+	width: 260px;
+	height: 338px;
+}
+
+.list-group a {
+	background: #548135;
+	font-size: 16px;
+	font-weight: 700;
+	color: #fff;
+	margin: 0;
+}
+
+.footer-section {
+
+	width: 100%;
+	background: #92D050;
+	padding: 20px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.footer-section span {
+	color: #035114;
+
+	font-family: Inter;
+	font-size: 32px;
+	
+	font-weight: 700;
+	
+}
+
+@media (max-width: 950px) {
+  .nav-btns {
+	background: #548135;
+	width: 90px;
+	height: 35px;
+	color: #FFF;
+	margin-bottom: 10px;
+
+	flex-shrink: 0;
+	font-size:12px;
+	font-style: normal;
+	font-weight: 700;
+
+}
+
+.search-btn {
+	background: #548135;
+	color: #FFF;
+	text-align: center;
+	
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	margin-left: 5px;
+
+}
+
+
+.td-wd {
+	width: 100px;
+	height: 35px;
+	flex-shrink: 0;
+	font-size: 12px;
+
+}
+}
+
+@media (max-width: 950px){
+	.td-wd {
+	width: 70px;
+	height: 25px;
+	flex-shrink: 0;
+	font-size: 10px;
+
+}
+
+.td-wd {
+	margin:0 3px;
+
+}
+
+th {
+	
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	padding-bottom: 10px;
+}
+
+.selectbox img {
+	transform: scale(0.5);
+	position: absolute;
+	top: 0%;
+	left: 65%;
+
+
+}
+
+
+
+
+.search-btn {
+		margin-left: 10px;
+
+}
+
+.selectbox select{
+	margin-right: 3px;
+}
+
+.listimg {
+	width:37px;
+	height: 39px;
+	margin-left: 5px;
+
+}
+
+.search-div {
+	
+
+	padding: 50px 0px 50px 10px;
+	margin-left: 0px;
+
+}
+
+.margins{
+	margin-top: 10px;
+	margin-left: 0px;
+	margin-bottom: 10px;
+}
+
+.catalog-text {
+	
+
+	font-size: 13px;
+	
+
+
+}
+
+.card{
+	margin:auto;
+}
+
+
+.select-div {
+	width: 260px;
+	height: 338px;
+	margin:auto;
+	margin-top: 5px;
+}
+
+
+
+}
